@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payroll index{% endblock %}
+
+{% block body %}
+    <h1>Payroll index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>PayDate</th>
+                <th>Amount</th>
+                <th>Deductions</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for payroll in payrolls %}
+            <tr>
+                <td>{{ payroll.id }}</td>
+                <td>{{ payroll.payDate ? payroll.payDate|date('Y-m-d') : '' }}</td>
+                <td>{{ payroll.amount }}</td>
+                <td>{{ payroll.deductions }}</td>
+                <td>
+                    <a href="{{ path('app_payroll_show', {'id': payroll.id}) }}">show</a>
+                    <a href="{{ path('app_payroll_edit', {'id': payroll.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_payroll_new') }}">Create new</a>
+{% endblock %}
